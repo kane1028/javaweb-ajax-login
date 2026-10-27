@@ -1,4 +1,4 @@
-# AJAX 用户登录 Demo（JavaWeb + Servlet）（蒲正艺）
+# AJAX 用户登录 Demo（蒲正艺）
 ## 功能清单
 
 - 登录表单用 `XMLHttpRequest` 异步提交，**页面不刷新**
