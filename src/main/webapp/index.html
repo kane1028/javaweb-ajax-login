@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX 用户登录 —— 项目说明</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="card">
+    <h1>AJAX 用户登录 Demo</h1>
+    <p class="subtitle">JavaWeb + Servlet + 原生 AJAX，不刷新页面完成登录</p>
+
+    <h2>功能</h2>
+    <ul>
+        <li>登录表单用 AJAX 提交，页面不刷新</li>
+        <li>Servlet 返回 JSON：<code>{"success":true,"message":"..."}</code></li>
+        <li>用户名不存在 / 密码错误 / 参数为空 都有对应提示</li>
+    </ul>
+
+    <h2>测试账号</h2>
+    <p><code>admin / 123456</code>　　<code>student / 123456</code></p>
+
+    <h2>访问顺序</h2>
+    <p>1. 打开 <a href="login.html">login.html</a>（登录页面）<br>
+       2. 用测试账号点「登录」，观察提示与页面变化</p>
+
+    <h2>文件结构</h2>
+    <pre>src/main/java/com/pzy/
+    model/User.java          用户实体
+    store/UserStore.java     用户仓库（内存 Map 当数据库）
+    web/LoginServlet.java    登录 Servlet，返回 JSON
+src/main/webapp/
+    login.html               登录页面（AJAX 在这）
+    index.html               本说明页
+    css/style.css            页面样式
+    WEB-INF/web.xml          欢迎页 + 中文编码配置</pre>
+</div>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户登录（AJAX 版）</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="card" id="loginBox">
+    <h1>用户登录</h1>
+    <p class="subtitle">提交时不刷新页面，由 AJAX 向 Servlet 要结果</p>
+
+    <!-- 注意：表单没有 action，也没有 method，提交动作由 JS 接管 -->
+    <form id="loginForm" onsubmit="return false;">
+        <label for="username">用户名</label>
+        <input type="text" id="username" placeholder="请输入用户名" autocomplete="off">
+
+        <label for="password">密码</label>
+        <input type="password" id="password" placeholder="请输入密码">
+
+        <button type="button" id="loginBtn">登 录</button>
+    </form>
+
+    <!-- 提示区：成功显示绿色，失败显示红色 -->
+    <p class="tip" id="tip"></p>
+    <p class="hint">测试账号：admin / 123456　或　student / 123456</p>
+</div>
+
+<!-- 登录成功后才显示的欢迎面板（默认藏起来） -->
+<div class="card" id="welcomeBox" style="display:none">
+    <h1 id="welcomeTitle">登录成功</h1>
+    <p class="subtitle">这个页面从头到尾没有刷新过，内容就是这么「局部」换掉的</p>
+    <p>当前登录用户：<strong id="currentUser"></strong></p>
+    <p>你也可以点<a href="index.html">这里</a>看看项目说明。</p>
+</div>
+
+<script>
+    // ===== 1. 找到页面上的元素 =====
+    var loginBtn = document.getElementById('loginBtn');
+    var tip = document.getElementById('tip');
+
+    // ===== 2. 给"登录"按钮绑定点击事件 =====
+    loginBtn.onclick = function () {
+
+        // 2.1 取用户输入
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+
+        // 2.2 先在浏览器端拦一下空值，少发一次没必要的请求
+        if (username.trim() === '' || password === '') {
+            showTip('用户名和密码不能为空', false);
+            return;
+        }
+
+        showTip('正在登录……', true);
+
+        // ===== 3. 核心：XMLHttpRequest（AJAX 的老祖宗） =====
+        var xhr = new XMLHttpRequest();
+
+        // 3.1 规定：用 POST 方式，请求地址是 login 这个 Servlet
+        xhr.open('POST', 'login', true);
+
+        // 3.2 POST 表单数据必须告诉服务器"我发的是键值对格式"
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        // 3.3 服务器返回后执行的回调
+        xhr.onreadystatechange = function () {
+            // readyState === 4 表示请求完成；status === 200 表示服务器处理正常
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    // xhr.responseText 就是 Servlet 写回来的那段 JSON 文本
+                    var data = JSON.parse(xhr.responseText);
+
+                    showTip(data.message, data.success);
+
+                    if (data.success) {
+                        // 登录成功：藏起登录框，显示欢迎面板
+                        document.getElementById('loginBox').style.display = 'none';
+                        document.getElementById('currentUser').textContent = username;
+                        document.getElementById('welcomeBox').style.display = 'block';
+                    }
+                } else {
+                    showTip('请求失败，状态码：' + xhr.status, false);
+                }
+            }
+        };
+
+        // 3.4 真正把数据发出去（中文要 encodeURIComponent 编码，否则服务器收到乱码）
+        xhr.send('username=' + encodeURIComponent(username)
+            + '&password=' + encodeURIComponent(password));
+    };
+
+    // ===== 4. 统一显示提示的小工具函数 =====
+    function showTip(message, isOk) {
+        // 用 textContent 而不是 innerHTML：内容再奇怪也不会被当 HTML 执行
+        tip.textContent = message;
+        tip.className = isOk ? 'tip ok' : 'tip error';
+    }
+</script>
+</body>
+</html>

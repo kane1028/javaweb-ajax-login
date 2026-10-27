@@ -1,0 +1,135 @@
+/* 极简样式：不引 CDN，断网也能正常显示 */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+    background: linear-gradient(135deg, #eef4ff 0%, #f7f2ff 100%);
+    color: #24313f;
+}
+
+.card {
+    width: 100%;
+    max-width: 420px;
+    background: #fff;
+    border-radius: 14px;
+    padding: 28px 30px 24px;
+    box-shadow: 0 10px 30px rgba(48, 70, 120, .12);
+}
+
+h1 {
+    margin: 0 0 6px;
+    font-size: 22px;
+}
+
+h2 {
+    margin: 22px 0 8px;
+    font-size: 16px;
+}
+
+.subtitle {
+    margin: 0 0 20px;
+    font-size: 13px;
+    color: #7a8798;
+}
+
+label {
+    display: block;
+    margin: 14px 0 6px;
+    font-size: 14px;
+    color: #454f5d;
+}
+
+input {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 15px;
+    border: 1px solid #d6dde8;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color .15s;
+}
+
+input:focus {
+    border-color: #5b8cff;
+}
+
+button {
+    width: 100%;
+    margin-top: 22px;
+    padding: 11px;
+    font-size: 16px;
+    color: #fff;
+    background: #4c7dff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .15s;
+}
+
+button:hover {
+    background: #3a67e0;
+}
+
+.tip {
+    min-height: 22px;
+    margin: 14px 0 0;
+    font-size: 14px;
+    color: #7a8798;
+}
+
+.tip.ok {
+    color: #14883f;
+}
+
+.tip.error {
+    color: #d93025;
+}
+
+.hint {
+    margin: 16px 0 0;
+    padding-top: 14px;
+    border-top: 1px dashed #e3e8f0;
+    font-size: 13px;
+    color: #8b97a8;
+}
+
+ul {
+    margin: 8px 0;
+    padding-left: 20px;
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+p, li, pre {
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+code {
+    padding: 1px 5px;
+    font-family: Consolas, monospace;
+    font-size: 13px;
+    background: #f1f4fa;
+    border-radius: 4px;
+}
+
+pre {
+    padding: 12px;
+    overflow-x: auto;
+    font-family: Consolas, monospace;
+    font-size: 12.5px;
+    background: #f6f8fc;
+    border-radius: 8px;
+}
+
+a {
+    color: #3a67e0;
+}
